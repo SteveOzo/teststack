@@ -1,4 +1,7 @@
 #Python example of oriented programming code
+import datetime
+from datetime import time
+
 
 class Auto():
     def __init__(self, placa_auto):
@@ -23,8 +26,26 @@ class Auto():
             self.dia = "libre"
 
     def getIsPico(self,fecha,hora):
-        dt = '2001-10-18'
+        self.setDiasPico()
         year, month, day = (int(x) for x in fecha.split('-'))
         theDay = datetime.date(year, month, day).weekday()
 
-        
+        if time(7,0) <= time(int(hora.split(":")[0]),int(hora.split(":")[1])) <= time(9,30) or time(16,0) <= time(int(hora.split(":")[0]),int(hora.split(":")[1])) <= time(19,30):
+            horaProhibida = True
+        else:
+            horaProhibida = False
+
+        if theDay == self.dia:
+            diaProhibido = True
+        else:
+            diaProhibido = False
+
+        if diaProhibido and horaProhibida:
+            return "No Circula"
+
+        else:
+            return "Puede Circular"
+
+
+mio = Auto("aaa-553")
+print mio.getIsPico("2017-10-31","19:32")
